@@ -1,8 +1,8 @@
-# Perfect Pharmacies Observer
+# PharmaLens
 
 **Which pharmacies hold an unmet opportunity for an OTC product, and can we explain why, without trusting dirty data?**
 
-Perfect Pharmacies Observer is an explainable decision-support pipeline that ranks pharmacies by unmet sales opportunity. It is built around one idea: **a ranking is only as good as the discipline applied to missing, late and conflicting data.**
+PharmaLens is an explainable decision-support pipeline that ranks pharmacies by unmet sales opportunity. It is built around one idea: **a ranking is only as good as the discipline applied to missing, late and conflicting data.**
 
 > **Status: synthetic-data demo.** No real data is included or processed. Every gate for real data (G0–G5) is `pending`. Demo outputs make no commercial accuracy claim.
 
@@ -61,13 +61,33 @@ Outputs land in `outputs/<run_id>/` (workbook), `reports/<run_id>/` (quality, re
 | `ppi reconcile --origin YYYY-MM` | As-of canonical movement + quality and reconciliation reports |
 | `ppi run [--exploratory]` | Monthly run; real data enforces gates, `--exploratory` never trains a model |
 | `ppi status` | Batches, gates and latest runs |
+| `ppi ui [--port 8501]` | Open the local PharmaLens viewer |
 
 Validation scripts (exit code 0 = pass, 1 = fail, 2 = no input) live in `scripts/`: reconciliation, as-of, scores, contracts, manifest and reproducibility.
+
+## PharmaLens viewer (local, read-only)
+
+After a run has finished, open it in the browser:
+
+```bash
+pip install -e ".[ui]"
+ppi ui                 # http://127.0.0.1:8501 (binds to localhost only)
+```
+
+| Page | What you see |
+|---|---|
+| Overview | Run, score month, champion, G3 proposal, gate status, Excel download |
+| Rankings | Track B total / by form and track A; filters; select a row to open it |
+| Pharmacy | One GLN: rank, baseline vs peer benchmark, reasons, forecast interval, SHAP contributions |
+| Data quality | Ingestion by dataset, quarantine by error code, source coverage, reconciliation |
+| Evaluation | G3 proposal and checks, evaluation report, global SHAP importance |
+
+The viewer never ingests, trains or writes data. It only reads the files a run already produced.
 
 ## Repository layout
 
 ```
-src/pharmacy_potential/   ingest · reconcile · features · models · evaluation · scoring · readiness · export · synth
+src/pharmacy_potential/   ingest · reconcile · features · models · evaluation · scoring · readiness · export · synth · ui
 configs/                  pilot config, source mappings, selection policy, thresholds, scenarios, synthetic universe
 contracts/                manifest schema, per-table JSON schemas, units/value and observation-status contracts
 scripts/                  validators and the reproducibility verifier

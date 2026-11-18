@@ -274,6 +274,27 @@ def status(config: str = CONFIG, data_root: Optional[str] = DATA_ROOT):
                            "order by created_at desc limit 5").df().to_string(index=False))
 
 
+@app.command()
+def ui(config: str = CONFIG, data_root: Optional[str] = DATA_ROOT,
+       port: int = typer.Option(8501, help="Local port. The viewer binds to 127.0.0.1 only.")):
+    """Open PharmaLens, the local read-only viewer of finished runs (needs `pip install -e .[ui]`)."""
+    import importlib.util
+    import os
+    import subprocess
+    import sys
+    if importlib.util.find_spec("streamlit") is None:
+        typer.echo("The viewer needs the optional UI dependency: pip install -e \".[ui]\"", err=True)
+        raise typer.Exit(2)
+    s = _settings(config, data_root)
+    env = {**os.environ, "PHARMALENS_REPORTS": str(s.reports_root), "PHARMALENS_ARTIFACTS": str(s.artifacts_root),
+           "PHARMALENS_OUTPUTS": str(s.outputs_root)}
+    script = Path(__file__).parent / "ui" / "app.py"
+    typer.echo(f"PharmaLens on http://127.0.0.1:{port} (Ctrl+C to stop)")
+    raise typer.Exit(subprocess.call(
+        [sys.executable, "-m", "streamlit", "run", str(script), "--server.address", "127.0.0.1", "--server.port", str(port),
+         "--server.headless", "true", "--browser.gatherUsageStats", "false"], env=env))
+
+
 def _print_result(res: dict) -> None:
     typer.echo("")
     typer.echo(f"run_id      : {res['run_id']}" + ("  [exploration only, no model trained]" if res.get("mode") == "exploration_only" else ""))

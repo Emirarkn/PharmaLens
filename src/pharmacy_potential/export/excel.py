@@ -147,7 +147,7 @@ def export_workbook(path: Path, result: pd.DataFrame, names: pd.DataFrame | None
 
     book = Book(path, banner)
     readme = [
-        ("PERFECT PHARMACIES OBSERVER", ""),
+        ("PHARMALENS", ""),
         ("Run", context["run_id"]),
         ("Score month / data cutoff", f"{context['score_month']} / {context['cutoff']}"),
         ("Data type", "SYNTHETIC DEMO - no row is a real pharmacy or sale." if synthetic else "Real data (authorized)"),

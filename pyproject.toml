@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "perfect-pharmacies-observer"
+name = "pharmalens"
 version = "0.1.0"
-description = "Explainable, as-of-safe OTC opportunity ranking for pharmacies (synthetic-data demo)"
+description = "PharmaLens - explainable, as-of-safe OTC opportunity ranking for pharmacies (synthetic-data demo)"
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "duckdb>=1.0",
@@ -25,6 +25,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+ui = ["streamlit>=1.40"]
 
 [project.scripts]
 ppi = "pharmacy_potential.cli:app"
