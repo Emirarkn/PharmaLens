@@ -77,10 +77,10 @@ def main() -> None:
 
     layer = pdk.Layer(
         "H3HexagonLayer", data=cells[["h3", "color", "label"]], get_hexagon="h3", get_fill_color="color",
-        extruded=False, opacity=0.45, pickable=True, stroked=False,
+        extruded=False, opacity=0.85, pickable=True, stroked=False,
     )
     deck = pdk.Deck(
-        layers=[layer], initial_view_state=pdk.ViewState(latitude=39.0, longitude=35.0, zoom=5),
+        layers=[layer], initial_view_state=pdk.ViewState(latitude=39.0, longitude=35.0, zoom=5.6),
         map_style="light", tooltip={"text": "{label}"},
     )
     deck.to_html(str(OUTPUT), css_background_color="#f4f4f4", open_browser=False)

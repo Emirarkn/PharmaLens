@@ -19,13 +19,14 @@ BLUE = [30, 90, 200]
 RED = [210, 40, 50]
 
 
-def sample(n: int = 3000, seed: int = 0) -> pd.DataFrame:
+def sample(n: int = 4000, seed: int = 0) -> pd.DataFrame:
     rng = np.random.default_rng(seed)
-    centres = np.array([[41.0, 29.0], [39.9, 32.8], [38.4, 27.1], [37.0, 35.3]])  # four large cities
-    c = centres[rng.integers(0, len(centres), n)]
+    centres = np.array([[41.01, 28.97], [40.99, 29.12], [41.08, 28.85], [40.90, 29.25]])  # one metro area, four districts
+    spread = np.array([0.04, 0.05, 0.05, 0.06])
+    k = rng.choice(len(centres), n, p=[0.4, 0.3, 0.2, 0.1])
     return pd.DataFrame({
-        "lat": c[:, 0] + rng.normal(0, 0.12, n), "lng": c[:, 1] + rng.normal(0, 0.15, n),
-        "type": rng.choice(["pharmacy", "clinic"], n, p=[0.92, 0.08]),
+        "lat": centres[k, 0] + rng.normal(0, 1, n) * spread[k], "lng": centres[k, 1] + rng.normal(0, 1, n) * spread[k] * 1.3,
+        "type": rng.choice(["pharmacy", "clinic"], n, p=[0.98, 0.02]),
     })
 
 
@@ -65,9 +66,9 @@ def main() -> None:
         pdk.Layer("H3HexagonLayer", data=pharm[["h3", "color", "label"]], get_hexagon="h3",
                   get_fill_color="color", extruded=False, pickable=True, stroked=False),
         pdk.Layer("ScatterplotLayer", data=clinic[["lat", "lng", "label"]], get_position=["lng", "lat"],
-                  get_fill_color=RED + [230], get_radius=1500, radius_min_pixels=5, pickable=True),
+                  get_fill_color=RED + [230], get_radius=700, radius_min_pixels=4, pickable=True),
     ]
-    view = pdk.ViewState(latitude=float(df.lat.mean()), longitude=float(df.lng.mean()), zoom=6)
+    view = pdk.ViewState(latitude=float(df.lat.mean()), longitude=float(df.lng.mean()), zoom=9.5)
     pdk.Deck(layers=layers, initial_view_state=view, map_style="light", tooltip={"text": "{label}"}) \
         .to_html(str(OUTPUT), css_background_color="#f4f4f4", open_browser=False)
     print(f"{len(pharm)} pharmacy cells, {len(clinic)} clinic cells -> {OUTPUT}")

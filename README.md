@@ -9,6 +9,12 @@ Small tooling for looking at pharmacy and clinic coverage against population den
 | Population density | `population_map.py` | Contour of people/km² from Kontur Population (H3 r8), 7 classes |
 | Pharmacies / clinics | `point_map.py` | Points aggregated into H3 r7 cells; no individual locations, names or sales data |
 
+![Population density contour](docs/img/population_map.png)
+*Population density (Kontur, H3 r8), people/km², YlOrRd classes.*
+
+![Aggregated pharmacy and clinic map](docs/img/point_map.png)
+*Pharmacies (blue hexagons, darker = more) and clinics (red dots), aggregated to H3 r7. Synthetic sample data.*
+
 ```bash
 pip install -r requirements.txt
 
