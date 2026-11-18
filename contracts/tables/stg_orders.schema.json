@@ -1,0 +1,62 @@
+{
+  "table": "stg_orders",
+  "dataset": "orders",
+  "grain_key": [
+    "order_id",
+    "line_id"
+  ],
+  "subgrain": [],
+  "foreign_keys": {
+    "gln": "pharmacy",
+    "barcode": "product"
+  },
+  "nonnegative": [
+    "ordered_units",
+    "cancelled_units"
+  ],
+  "time_column": "occurred_at",
+  "available_at_column": "available_at",
+  "columns": {
+    "order_id": {
+      "type": "string",
+      "required": true
+    },
+    "line_id": {
+      "type": "string",
+      "required": true
+    },
+    "gln": {
+      "type": "string(13 digits)",
+      "required": true
+    },
+    "barcode": {
+      "type": "string(8-14 digits)",
+      "required": true
+    },
+    "ordered_units": {
+      "type": "integer",
+      "required": true
+    },
+    "cancelled_units": {
+      "type": "integer",
+      "required": false
+    },
+    "occurred_at": {
+      "type": "date",
+      "required": true
+    },
+    "available_at": {
+      "type": "date",
+      "required": false
+    },
+    "order_status": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "lineage_columns": {
+    "_batch_id": "ingestion batch",
+    "_source_row_id": "1-based row in raw file",
+    "_available_at": "UTC time the row is considered known"
+  }
+}

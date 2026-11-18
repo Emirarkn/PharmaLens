@@ -1,0 +1,19 @@
+# SCENARIO parameters - not measurements. Owner approval pending.
+# Every multiplier is national; assigning it to a district is a scenario, not a district measurement.
+scenario_version: demo_brand_v001
+approval_status: draft_unapproved
+age_scope: "adult 15+"
+period_unit: month
+
+parameters:
+  smoking_prevalence:     {low: 0.26, base: 0.28, high: 0.31, source: "scenario placeholder", period: annual}
+  quit_attempt_rate:      {low: 0.30, base: 0.40, high: 0.50, source: "scenario placeholder", period: annual}
+  nrt_use_share:          {low: 0.18, base: 0.25, high: 0.32, source: "scenario placeholder", period: per_attempt}
+  boxes_per_attempt:      {low: 3.0,  base: 4.0,  high: 5.0,  source: "scenario placeholder", period: per_attempt}
+  demo_brand_share:        {low: 0.28, base: 0.35, high: 0.42, source: "scenario placeholder", period: per_attempt}
+
+# Annual quit attempts are converted to a monthly rate by /12 (no seasonality assumed here).
+annual_to_monthly_divisor: 12
+
+# Pharmacy allocation inside a district: equal share (ties preserved).
+allocation: equal_share

@@ -1,0 +1,46 @@
+{
+  "table": "stg_coverage_register",
+  "dataset": "coverage_register",
+  "grain_key": [
+    "covered_source",
+    "month",
+    "scope_type",
+    "scope_id"
+  ],
+  "subgrain": [],
+  "foreign_keys": {},
+  "nonnegative": [],
+  "time_column": "month",
+  "available_at_column": null,
+  "columns": {
+    "covered_source": {
+      "type": "string",
+      "required": true
+    },
+    "month": {
+      "type": "date(first day of month)",
+      "required": true
+    },
+    "scope_type": {
+      "type": "string",
+      "required": true
+    },
+    "scope_id": {
+      "type": "string",
+      "required": true
+    },
+    "coverage_status": {
+      "type": "string",
+      "required": true
+    },
+    "evidence": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "lineage_columns": {
+    "_batch_id": "ingestion batch",
+    "_source_row_id": "1-based row in raw file",
+    "_available_at": "UTC time the row is considered known"
+  }
+}

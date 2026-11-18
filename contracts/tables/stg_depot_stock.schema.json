@@ -1,0 +1,46 @@
+{
+  "table": "stg_depot_stock",
+  "dataset": "depot_stock",
+  "grain_key": [
+    "stock_as_of",
+    "sub_depot_code",
+    "barcode"
+  ],
+  "subgrain": [],
+  "foreign_keys": {
+    "sub_depot_code": "depot",
+    "barcode": "product"
+  },
+  "nonnegative": [
+    "units_on_hand"
+  ],
+  "time_column": "stock_as_of",
+  "available_at_column": null,
+  "columns": {
+    "stock_as_of": {
+      "type": "date",
+      "required": true
+    },
+    "sub_depot_code": {
+      "type": "string",
+      "required": true
+    },
+    "barcode": {
+      "type": "string(8-14 digits)",
+      "required": true
+    },
+    "units_on_hand": {
+      "type": "integer",
+      "required": true
+    },
+    "stock_type": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "lineage_columns": {
+    "_batch_id": "ingestion batch",
+    "_source_row_id": "1-based row in raw file",
+    "_available_at": "UTC time the row is considered known"
+  }
+}

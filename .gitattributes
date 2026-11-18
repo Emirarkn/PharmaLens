@@ -1,0 +1,6 @@
+# Keep LF everywhere so plan checksums (scripts/verify_plans_unchanged.py) survive checkout on Windows.
+* text=auto eol=lf
+*.xlsx binary
+*.parquet binary
+*.duckdb binary
+*.png binary

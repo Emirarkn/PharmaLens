@@ -1,0 +1,22 @@
+# Source mapping: depot->pharmacy movement, "mutabakat" (reconciliation) feed.
+# For real data: edit only `file` and each column's `source` to match the delivered file.
+dataset: movement_mutabakat
+source_name: mutabakat
+stage_table: stg_movement_mutabakat
+file: {format: csv, delimiter: ";", decimal: ",", thousands: null, encoding: utf-8, month_formats: ["%Y-%m", "%Y%m"], date_format: "%d.%m.%Y"}
+columns:
+  gln:                   {source: GLN, type: gln, required: true}
+  month:                 {source: Donem, type: month, required: true}
+  barcode:               {source: Barkod, type: barcode, required: true}
+  depot_code:            {source: DepoKodu, type: code, required: true}
+  units_paid:            {source: SatisAdet, type: int, required: true}
+  units_free:            {source: MFAdet, type: int, required: false}
+  returns_units:         {source: IadeAdet, type: int, required: false}
+  net_value_vat_inc_try: {source: NetTutarKDVDahil, type: decimal, required: false}
+key: [gln, month, barcode, depot_code]
+subgrain: [depot_code]          # proven sub-grain: rows are aggregated over depots inside this source
+measures: [units_paid, units_free, returns_units, net_value_vat_inc_try]
+nonnegative: [units_paid, units_free, returns_units]
+fk: {gln: pharmacy, barcode: product, depot_code: depot}
+time_column: month
+available_at_column: null

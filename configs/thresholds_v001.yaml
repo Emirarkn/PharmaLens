@@ -1,0 +1,48 @@
+# Proposed thresholds. Frozen for the synthetic demo by the coding agent;
+# G2 owner approval is still pending - these are NOT approved business targets.
+thresholds_version: thresholds_v001
+approval_status: frozen_for_demo_unapproved
+
+proxy_label:
+  # Positive = sustained excess growth vs the district median, next 3 months vs last 3 months.
+  base_window_months: 3
+  future_window_months: 3
+  min_excess_ratio: 1.25        # ((fut+1)/(base+1)) / district median of the same ratio
+  min_abs_increase_per_month: 1.0
+  min_future_months_above_base: 2
+
+low_sales_cohort:
+  # Defined at the cutoff: baseline at or below the city 25th percentile.
+  city_quantile: 0.25
+
+peer:
+  min_peers: 20
+  shrink_k: 20
+  benchmark_quantile: 0.5
+
+k_values: [50, 100, 250]
+
+g3_targets:
+  min_lift_vs_random_at_100: 1.20
+  min_rel_improvement_vs_best_simple_at_100: 0.10
+  min_origins_consistent: 2
+  min_eligible_overall: 500
+  min_positive_overall: 50
+  min_eligible_holdout: 100
+  min_positive_holdout: 10
+
+bootstrap:
+  reps: 500
+  cluster: district
+
+confidence:
+  high: 0.70
+  medium: 0.45
+
+readiness:
+  max_stock_age_days: 45
+  sellin_lookback_months: 3
+
+monitoring:
+  budget_warn_usd: 40
+  budget_stop_usd: 50

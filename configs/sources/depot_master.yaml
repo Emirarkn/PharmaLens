@@ -1,0 +1,20 @@
+# Source mapping: depot master (parent / sub depots).
+dataset: depot_master
+source_name: master
+stage_table: stg_depot_master
+file: {format: csv, delimiter: ",", decimal: ".", thousands: null, encoding: utf-8, month_formats: ["%Y-%m"], date_format: "%Y-%m-%d"}
+columns:
+  depot_code:        {source: depot_code, type: code, required: true}
+  parent_depot_code: {source: parent_depot_code, type: code, required: false}
+  depot_level:       {source: level, type: code, required: true}
+  depot_name:        {source: depot_name, type: string, required: false}
+  city_code:         {source: city_code, type: code, required: false}
+  valid_from:        {source: valid_from, type: date, required: false}
+  valid_to:          {source: valid_to, type: date, required: false}
+key: [depot_code]
+subgrain: []
+measures: []
+nonnegative: []
+fk: {}
+time_column: null
+available_at_column: null

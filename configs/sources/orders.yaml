@@ -1,0 +1,22 @@
+# Source mapping: rep orders. Orders never add to movement; future-dated knowledge is forbidden in features.
+dataset: orders
+source_name: crm
+stage_table: stg_orders
+file: {format: csv, delimiter: ",", decimal: ".", thousands: null, encoding: utf-8, month_formats: ["%Y-%m"], date_format: "%Y-%m-%d"}
+columns:
+  order_id:        {source: SiparisNo, type: code, required: true}
+  line_id:         {source: SatirNo, type: code, required: true}
+  gln:             {source: GLN, type: gln, required: true}
+  barcode:         {source: Barkod, type: barcode, required: true}
+  ordered_units:   {source: SiparisAdet, type: int, required: true}
+  cancelled_units: {source: IptalAdet, type: int, required: false}
+  occurred_at:     {source: SiparisTarihi, type: date, required: true}
+  available_at:    {source: KayitTarihi, type: date, required: false}
+  order_status:    {source: Durum, type: code, required: false}
+key: [order_id, line_id]
+subgrain: []
+measures: [ordered_units, cancelled_units]
+nonnegative: [ordered_units, cancelled_units]
+fk: {gln: pharmacy, barcode: product}
+time_column: occurred_at
+available_at_column: available_at

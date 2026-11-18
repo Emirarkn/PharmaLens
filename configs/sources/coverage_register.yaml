@@ -1,0 +1,19 @@
+# Source mapping: delivery coverage declarations per source x month x scope (depot or panel).
+dataset: coverage_register
+source_name: coverage
+stage_table: stg_coverage_register
+file: {format: csv, delimiter: ",", decimal: ".", thousands: null, encoding: utf-8, month_formats: ["%Y-%m", "%Y%m"], date_format: "%Y-%m-%d"}
+columns:
+  covered_source:  {source: source, type: code, required: true}
+  month:           {source: month, type: month, required: true}
+  scope_type:      {source: scope_type, type: code, required: true}
+  scope_id:        {source: scope_id, type: code, required: true}
+  coverage_status: {source: status, type: code, required: true}
+  evidence:        {source: evidence, type: string, required: false}
+key: [covered_source, month, scope_type, scope_id]
+subgrain: []
+measures: []
+nonnegative: []
+fk: {}
+time_column: month
+available_at_column: null

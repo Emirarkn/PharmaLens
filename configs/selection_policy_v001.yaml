@@ -1,0 +1,23 @@
+# DRAFT - G1 not accepted. Data owner approval required before real-data use.
+policy_version: selection_policy_v001
+approval_status: draft_unapproved
+
+primary_source: mutabakat
+fallback_source: vendor
+
+# A primary cell is eligible only when every depot linked to the GLN in that month
+# reported with coverage status "complete" (as known at the cutoff).
+primary_eligibility: coverage_complete_all_linked_depots
+
+# Absence of a record is zero only where the coverage contract proves complete reporting.
+primary_absence_is_zero_when_complete: true
+fallback_absence_is_zero: false
+
+# Same-key repeats inside one source: identical rows are deduplicated, conflicting rows quarantined.
+within_source_duplicates: {identical: deduplicate, conflicting: quarantine}
+
+# Large disagreement between sources is flagged and reported, never averaged or summed.
+conflict_threshold: {abs_units: 3, rel: 0.30}
+
+# Alternative modes for the source-fixed sensitivity report only.
+modes: [default, primary_only, fallback_only]

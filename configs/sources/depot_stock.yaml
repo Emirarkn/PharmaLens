@@ -1,0 +1,18 @@
+# Source mapping: sub-depot stock snapshots (a level, not a flow).
+dataset: depot_stock
+source_name: stock
+stage_table: stg_depot_stock
+file: {format: csv, delimiter: ",", decimal: ".", thousands: null, encoding: utf-8, month_formats: ["%Y-%m"], date_format: "%Y-%m-%d"}
+columns:
+  stock_as_of:    {source: StokTarihi, type: date, required: true}
+  sub_depot_code: {source: AltDepoKodu, type: code, required: true}
+  barcode:        {source: Barkod, type: barcode, required: true}
+  units_on_hand:  {source: EldekiAdet, type: int, required: true}
+  stock_type:     {source: StokTipi, type: code, required: false}
+key: [stock_as_of, sub_depot_code, barcode]
+subgrain: []
+measures: [units_on_hand]
+nonnegative: [units_on_hand]
+fk: {sub_depot_code: depot, barcode: product}
+time_column: stock_as_of
+available_at_column: null

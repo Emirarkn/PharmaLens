@@ -1,0 +1,32 @@
+# Data and run outputs may contain identifiable commercial data - never commit.
+data/
+outputs/
+reports/
+artifacts/
+*.duckdb
+*.duckdb.wal
+*.parquet
+*.xlsx
+*.csv
+!configs/**/*.csv
+!docs/**/*.csv
+!tests/fixtures/**/*.csv
+
+# Secrets
+.env
+*.secret
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+build/
+dist/
+
+# Editors / tools
+.vscode/
+.idea/
+
+

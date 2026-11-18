@@ -1,0 +1,19 @@
+# Source mapping: company -> depot sell-in (channel inflow, NOT demand). Parent grain until sub-depot detail is proven.
+dataset: sellin
+source_name: sellin
+stage_table: stg_sellin
+file: {format: csv, delimiter: ",", decimal: ".", thousands: null, encoding: utf-8, month_formats: ["%Y-%m"], date_format: "%Y-%m-%d"}
+columns:
+  month:             {source: Ay, type: month, required: true}
+  depot_code:        {source: DepoKodu, type: code, required: true}
+  barcode:           {source: Barkod, type: barcode, required: true}
+  received_units:    {source: GirisAdet, type: int, required: true}
+  returned_units:    {source: IadeAdet, type: int, required: false}
+  value_vat_inc_try: {source: TutarKDVDahil, type: decimal, required: false}
+key: [month, depot_code, barcode]
+subgrain: []
+measures: [received_units, returned_units, value_vat_inc_try]
+nonnegative: [received_units, returned_units]
+fk: {depot_code: depot, barcode: product}
+time_column: month
+available_at_column: null

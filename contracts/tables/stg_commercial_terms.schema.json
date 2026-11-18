@@ -1,0 +1,56 @@
+{
+  "table": "stg_commercial_terms",
+  "dataset": "commercial_terms",
+  "grain_key": [
+    "month",
+    "barcode",
+    "campaign_id",
+    "eligibility_scope"
+  ],
+  "subgrain": [],
+  "foreign_keys": {
+    "barcode": "product"
+  },
+  "nonnegative": [],
+  "time_column": "month",
+  "available_at_column": "available_at",
+  "columns": {
+    "month": {
+      "type": "date(first day of month)",
+      "required": true
+    },
+    "barcode": {
+      "type": "string(8-14 digits)",
+      "required": true
+    },
+    "campaign_id": {
+      "type": "string",
+      "required": true
+    },
+    "eligibility_scope": {
+      "type": "string",
+      "required": true
+    },
+    "mf_definition": {
+      "type": "string",
+      "required": false
+    },
+    "discount_rate": {
+      "type": "decimal(18,4)",
+      "required": false
+    },
+    "price_basis": {
+      "type": "string",
+      "required": false
+    },
+    "available_at": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "lineage_columns": {
+    "_batch_id": "ingestion batch",
+    "_source_row_id": "1-based row in raw file",
+    "_available_at": "UTC time the row is considered known"
+  }
+}

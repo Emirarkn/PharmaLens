@@ -1,0 +1,26 @@
+# Source mapping: external district statistics (licensed/official). Vintage and publication date are mandatory.
+dataset: external_geo
+source_name: external
+stage_table: stg_external_geo
+file: {format: csv, delimiter: ",", decimal: ".", thousands: null, encoding: utf-8, month_formats: ["%Y-%m"], date_format: "%Y-%m-%d"}
+columns:
+  geo_id:           {source: geo_id, type: code, required: true}
+  city_code:        {source: city_code, type: code, required: true}
+  district_code:    {source: district_code, type: code, required: false}
+  geo_level:        {source: geo_level, type: code, required: true}
+  geo_name:         {source: name, type: string, required: false}
+  reference_period: {source: reference_period, type: int, required: true}
+  metric_id:        {source: metric_id, type: code, required: true}
+  value:            {source: value, type: decimal, required: true}
+  unit:             {source: unit, type: string, required: false}
+  age_scope:        {source: age_scope, type: string, required: false}
+  available_at:     {source: publication_date, type: date, required: true}
+  source_url:       {source: source_url, type: string, required: false}
+  license_id:       {source: license_id, type: code, required: false}
+key: [geo_id, reference_period, metric_id]
+subgrain: []
+measures: [value]
+nonnegative: [value]
+fk: {}
+time_column: null
+available_at_column: available_at
